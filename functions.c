@@ -20,7 +20,9 @@ void createRSS(char xss[100], char temp[100],char pseudo[20], char text[10000],i
         int count = 0;
         char c;
         char ch;
+        int maxLines = 0;
 
+        maxLines = countLines(xss);
         xssPtr = fopen(xss, "r");
         tempPtr = fopen(temp,"w");
 
@@ -51,21 +53,19 @@ void createRSS(char xss[100], char temp[100],char pseudo[20], char text[10000],i
         fprintf(tempPtr,"<title>%s</title>\n",text);
         fprintf(tempPtr,"<link>https://blog.neuschwabenland.net/index.html#%d</link>\n",lines);
         fprintf(tempPtr,"<guid>https://blog.neuschwabenland.net/index.html#%d</guid>\n",lines);
-        fprintf(tempPtr,"</item>");
+        fprintf(tempPtr,"</item>\n");
 
         for (c = getc(xssPtr); c != EOF; c = getc(xssPtr)) {
                 if (c == '\n')
                         count = count + 1;
-                if(count >= 7 && count < 58)
+                if(count >= 7 && count < 60)
                         fputc(c, tempPtr);
-                if(count == 58)
+                if(count == maxLines - 1)
                         break;
         }
 
-        if(count >= 58) {
-                fprintf(tempPtr,"</channel>\n");
-                fprintf(tempPtr,"</rss>");
-        }
+        fprintf(tempPtr,"</channel>\n");
+        fprintf(tempPtr,"</rss>");
         fclose(tempPtr);
         fclose(xssPtr);
         remove(xss);
