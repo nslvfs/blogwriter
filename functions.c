@@ -50,7 +50,7 @@ void createRSS(char xss[100], char temp[100],char pseudo[20], char text[10000],i
         fprintf(tempPtr,"<description>Der offizielle Neuschwabenlandblog</description>\n");
         fprintf(tempPtr,"<language>de</language>\n");
         fprintf(tempPtr,"<item>\n");
-        fprintf(tempPtr,"<title>%s</title>\n",text);
+        fprintf(tempPtr,"<title>%s: %s</title>\n", pseudo, text);
         fprintf(tempPtr,"<link>https://blog.neuschwabenland.net/index.html#%d</link>\n",lines);
         fprintf(tempPtr,"<guid>https://blog.neuschwabenland.net/index.html#%d</guid>\n",lines);
         fprintf(tempPtr,"</item>\n");
